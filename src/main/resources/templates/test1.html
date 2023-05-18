@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<link rel="stylesheet" href="../static/css/test1.css" th:href="@{/css/test1.css}"/>
+<link rel="stylesheet" href="../static/css/liMarquee.css" th:href="@{/css/liMarquee.css}"/>
+<script type="text/javascript" src="../static/js/jquery.js" th:src="@{/js/jquery.js}"></script>
+<script type="text/javascript" src="../static/js/echarts.js" th:src="@{/js/echarts.js}"></script>
+<script type="text/javascript" src="../static/js/jquery.liMarquee.js" th:src="@{/js/jquery.liMarquee.js}"></script>
+<body>
+<div id="box">
+    <div id="center" style="color: red">
+        <div id="list">
+            <span >TaoBao Data Visualization</span>
+        </div>
+        <div id="list1"><span>首页</span></div>
+        <div id="list2"><span>服饰</span></div>
+        <div id="list3"><span>彩妆</span></div>
+        <div id="list4"><span>电器</span></div>
+        <div id="list5"><span>美食</span></div>
+    </div>
+    <div id="bottom">
+        <div id="left">
+         <div class="box1">
+             <div id="pic1"></div>
+         </div>
+        </div>
+        <div id="down">
+            <div id="box2">销售额数</div>
+            <div id="box3">
+                <div id="tb">
+                    <div class="tn">
+                        <span>brand</span>
+                        <span>price</span>
+                        <span>specification</span>
+                        <span>tatolsale</span>
+                        <span>summoney</span>
+                    </div>
+                    <div class="cn">
+                        <table>
+                            <tr th:each="makeup:${datas}">
+                                <!--/*@thymesVar id="hero" type=""*/-->
+                                <td th:text="${makeup.brand}">a</td>
+                                <td th:text="${makeup.funltion}">b</td>
+                                <td th:text="${makeup.price}">c</td>
+                                <td th:text="${makeup.specification}">d</td>
+                                <td th:text="${makeup.totalsale}">c</td>
+                                <td th:text="${makeup.summoney}">c</td>
+                            </tr>
+                        </table>
+                    </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+</body>
+<script type="text/javascript">
+    var pic1=echarts.init(document.getElementById("pic1"));
+    var pic2=echarts.init(document.getElementById("box2"));
+    $.ajax({
+        url:"/makeup/getbrandinfo",
+        method:"GET",
+        dataType:"JSON",
+        success:function (result){
+            pic11(result);
+            aj2()
+        }
+    })
+
+    function aj2(){
+        $.ajax({
+            url:"/makeup/getpc",
+            method:"GET",
+            dataType:"JSON",
+            success:function (resultt){
+                // console.log(result);
+                // window.location.href="http://localhost:8080/makeup/totest1"
+                piccs(resultt);
+            }
+        })
+    }
+    //分类饼图
+   function pic11(data){
+       option = {
+           title: {
+               text: '彩妆类数据饼图',
+               subtext: 'Example in MetricsGraphics.js',
+               left: 'center'
+           },
+           legend: {
+               top: 'top'
+
+           },
+           toolbox: {
+               show: true,},
+           series: [
+               {
+                   name: 'Nightingale Chart',
+                   type: 'pie',
+                   radius: [30, 150],
+                   center: ['50%', '50%'],
+                   roseType: 'area',
+                   itemStyle: {
+                       borderRadius: 8
+                   },
+                   data: data,
+               }
+           ]
+       };
+       pic1.setOption(option);
+   }
+   //销售额数据条形图
+    function piccs(dataa){
+
+        option = {
+
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    crossStyle: {
+                        color: '#999'
+                    }
+                }
+            },
+            toolbox: {
+                feature: {
+                    dataView: { show: true, readOnly: false },
+                    magicType: { show: true, type: ['line', 'bar'] },
+                }
+            },
+            legend: {
+                data: ['summoney', 'totalsale']
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    data: dataa.brand,
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    name: 'summoney',
+                    min: 0,
+                    max: 15000,
+                    interval: 2000,
+                    axisLabel: {
+                        formatter: '{value} 份'
+                    }
+                },
+                {
+                    type: 'value',
+                    name: 'totalsale',
+                    min: 2000,
+                    max: 150000,
+                    interval: 20000,
+                    axisLabel: {
+                        formatter: '{value} 万'
+                    }
+                }
+            ],
+            series: [
+                {
+                    name: 'totalsale',
+                    type: 'bar',
+                    tooltip: {
+                        valueFormatter: function (value) {
+                            return value ;
+                        }
+                    },
+                    data: dataa.totalsale
+                },
+                {
+                    name: 'summoney',
+                    type: 'line',
+                    yAxisIndex: 1,
+                    tooltip: {
+                        valueFormatter: function (value) {
+                            return value + ' 万元';
+                        }
+                    },
+                    data: dataa.summoney
+                }
+            ]
+        };
+        pic2.setOption(option);
+    }
+
+
+//获取轮播数据
+    $(".cn").liMarquee({
+        direction:"up",
+        runshort: false,
+        scrollamount:10,
+    })
+</script>
+</html>

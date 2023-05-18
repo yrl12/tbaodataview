@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>主页面</title>
+</head>
+<link rel="stylesheet" href="../static/css/login.css" th:href="@{/css/login.css}"/>
+<script type="text/javascript" src="../static/js/jquery.js" th:src="@{/js/jquery.js}"></script>
+<body>
+    <div id="bottom">
+        <div id="main">
+        <div id="left">Welcome Login!</div>
+        <div id="right">
+            <div id="box">
+                <div id="text">用户登录</div>
+                <div>
+                    <input type="text" style="width: 80%;height:50% " placeholder="请输入用户名" id="username">
+                </div>
+                <div>
+                    <input type="password" style="width: 80%;height:50% " placeholder="请输入密码" id="password">
+                </div>
+                <div id="box1">
+                    <input type="button" style="width: 40%;height:50% " value="登录" onclick="login()">
+                    <input type="button" style="width: 40%;height:50% " value="注册" onclick="login()">
+                </div>
+                <div id="a1">
+                    <input type="button"  value="管理员登录" onclick="login()">
+                    <input type="checkbox" >十天免登录
+                </div>
+            </div>
+        </div>
+        </div>
+</div>
+</body>
+<script>
+    function login(){
+        // 清除span内容
+        $("span").remove();
+        var username=$("#username").val();
+        var password=$("#password").val();
+        var flag=true;
+        if(username==null ||username==''){
+            flag=false;
+            $("#username").after("<span style='color: red'>用户名不能为空</span>")
+        }
+        if(password==null || password==''){
+            flag=false;
+            $("#password").after("<span style='color: red'>用户名不能为空</span>")
+        }
+
+        if(flag){
+            alert("请求发送")
+            //请求的发送:请求地址、请求方式、请求数据类型JSON、回调函数
+            $.ajax({
+                //请求地址
+                url:"http://localhost:8080/user/login?username="+username+"&password="+password,
+                //请求方式
+                method:"GET",
+                //数据
+                // data:{
+                //     "name":username,
+                // }
+                //请求数据类型JSON
+                // dataType:"JSON",
+                //回调函数
+                success:function (result){
+                    if(result.code==200){
+                        window.location.href="http://localhost:8080/user/toindex";
+                    }else{
+                        alert(result.msg);
+                    }
+                    //console.log(result)
+                }
+
+            })
+
+        }
+
+    }
+
+</script>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<link rel="stylesheet" href="../static/css/uniform.css" th:href="@{/css/uniform.css}"/>
+<script type="text/javascript" src="../static/js/echarts.js" th:src="@{/js/echarts.js}"></script>
+<script type="text/javascript" src="../static/js/jquery.js" th:src="@{/js/jquery.js}"></script>
+<script type="text/javascript" src="../static/js/jquery.liMarquee.js" th:src="@{/js/jquery.liMarquee.js}"></script>
+<body>
+<div id="box">
+    <div id="center">
+        <div id="list">
+            <span >TaoBao Data Visualization</span>
+        </div>
+        <div id="list1"><span>首页</span></div>
+        <div id="list2"><span>服饰</span></div>
+        <div id="list3"><span>彩妆</span></div>
+        <div id="list4"><span>电器</span></div>
+        <div id="list5"><span>美食</span></div>
+    </div>
+    <div id="bottom">
+        <div id="left1">
+            <div class="left1-top">
+<!--                <div class="ha">服饰的价格和销量折线图</div>-->
+                <div id="hb"></div>
+            </div>
+            <div id="left1-bottom">
+<!--                <div class="ma">服饰的销售额漏斗图</div>-->
+                <div id="mb"></div>
+            </div>
+        </div>
+        <div id="right1">
+                <div id="yb"></div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    var ff=echarts.init(document.getElementById('hb'));
+    var lf=echarts.init(document.getElementById('mb'));
+    var mf=echarts.init(document.getElementById('yb'));
+    // var mapName='贵州省'
+
+    option = {
+        title: {
+            text: 'line'
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {},
+        toolbox: {
+            show: true,
+            feature: {
+                dataZoom: {
+                    yAxisIndex: 'none'
+                },
+                dataView: { readOnly: false },
+                magicType: { type: ['line', 'bar'] },
+                restore: {},
+                saveAsImage: {}
+            }
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        },
+        yAxis: {
+            type: 'value',
+            axisLabel: {
+                formatter: '{value} °C'
+            }
+        },
+        series: [
+            {
+                name: 'sale',
+                type: 'line',
+                data: [10, 11, 13, 11, 12, 12, 9],
+                markPoint: {
+                    data: [
+                        { type: 'max', name: 'Max' },
+                        { type: 'min', name: 'Min' }
+                    ]
+                },
+                markLine: {
+                    data: [{ type: 'average', name: 'Avg' }]
+                }
+            },
+            {
+                name: 'price',
+                type: 'line',
+                data: [1, -2, 2, 5, 3, 2, 0],
+                markPoint: {
+                    data: [{ name: '周最低', value: -2, xAxis: 1, yAxis: -1.5 }]
+                },
+            }
+        ]
+    };
+    ff.setOption(option);
+
+    option = {
+        title: {
+            text: 'Funnel'
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: '{a} <br/>{b} : {c}%'
+        },
+        toolbox: {
+            feature: {
+                dataView: { readOnly: false },
+                restore: {},
+                saveAsImage: {}
+            }
+        },
+        legend: {
+            data: ['Show', 'Click', 'Visit', 'Inquiry', 'Order']
+        },
+        series: [
+            {
+                name: 'Funnel',
+                type: 'funnel',
+                left: '10%',
+                top: 60,
+                bottom: 60,
+                width: '80%',
+                min: 0,
+                max: 100,
+                minSize: '0%',
+                maxSize: '100%',
+                sort: 'descending',
+                gap: 2,
+                label: {
+                    show: true,
+                    position: 'inside'
+                },
+                labelLine: {
+                    length: 10,
+                    lineStyle: {
+                        width: 1,
+                        type: 'solid'
+                    }
+                },
+                itemStyle: {
+                    borderColor: '#fff',
+                    borderWidth: 1
+                },
+                emphasis: {
+                    label: {
+                        fontSize: 20
+                    }
+                },
+                data: [
+                    { value: 60, name: 'Visit' },
+                    { value: 40, name: 'Inquiry' },
+                    { value: 20, name: 'Order' },
+                    { value: 80, name: 'Click' },
+                    { value: 100, name: 'Show' }
+                ]
+            }
+        ]
+    };
+    lf.setOption(option);
+
+    //地图
+    $.get('../static/json/HK.json', function (geoJson) {
+        echarts.registerMap('HK', geoJson);
+        mf.setOption(
+            (option = {
+                title: {
+                    text: 'Population Density of Hong Kong （2011）',
+                    subtext: 'Data from Wikipedia',
+                    sublink:
+                        'http://zh.wikipedia.org/wiki/%E9%A6%99%E6%B8%AF%E8%A1%8C%E6%94%BF%E5%8D%80%E5%8A%83#cite_note-12'
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: '{b}<br/>{c} (p / km2)'
+                },
+                toolbox: {
+                    show: false,
+                    orient: 'vertical',
+                    top: 'center',
+                },
+                visualMap: {
+                    min: 800,
+                    max: 50000,
+                    text: ['High', 'Low'],
+                    realtime: false,
+                    calculable: true,
+                    inRange: {
+                        color: ['lightskyblue', 'yellow', 'orangered']
+                    }
+                },
+                series: [
+                    {
+                        name: '香港18区人口密度',
+                        type: 'map',
+                        map: 'HK',
+                        label: {
+                            show: true
+                        },
+                        data: [
+                            { name: '中西区', value: 20057.34 },
+                            { name: '湾仔', value: 15477.48 },
+                            { name: '东区', value: 31686.1 },
+                            { name: '南区', value: 6992.6 },
+                            { name: '油尖旺', value: 44045.49 },
+                            { name: '深水埗', value: 40689.64 },
+                            { name: '九龙城', value: 37659.78 },
+                            { name: '黄大仙', value: 45180.97 },
+                            { name: '观塘', value: 55204.26 },
+                            { name: '葵青', value: 21900.9 },
+                            { name: '荃湾', value: 4918.26 },
+                            { name: '屯门', value: 5881.84 },
+                            { name: '元朗', value: 4178.01 },
+                            { name: '北区', value: 2227.92 },
+                            { name: '大埔', value: 2180.98 },
+                            { name: '沙田', value: 9172.94 },
+                            { name: '西贡', value: 3368 },
+                            { name: '离岛', value: 806.98 }
+                        ],
+                        // 自定义名称映射
+                        nameMap: {
+                            'Central and Western': '中西区',
+                            Eastern: '东区',
+                            Islands: '离岛',
+                            'Kowloon City': '九龙城',
+                            'Kwai Tsing': '葵青',
+                            'Kwun Tong': '观塘',
+                            North: '北区',
+                            'Sai Kung': '西贡',
+                            'Sha Tin': '沙田',
+                            'Sham Shui Po': '深水埗',
+                            Southern: '南区',
+                            'Tai Po': '大埔',
+                            'Tsuen Wan': '荃湾',
+                            'Tuen Mun': '屯门',
+                            'Wan Chai': '湾仔',
+                            'Wong Tai Sin': '黄大仙',
+                            'Yau Tsim Mong': '油尖旺',
+                            'Yuen Long': '元朗'
+                        }
+                    }
+                ]
+            })
+        );
+    });
+    mf.setOption(option);
+
+</script>
+</html>
+

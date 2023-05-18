@@ -1,0 +1,157 @@
+* {
+    padding: 0;
+    margin: 0;
+    color: lightyellow;
+}
+html{
+    width: 100%;
+    height: 100%;
+}
+body{
+    width: 100%;
+    height: 100%;
+}
+#box{
+    width: 100%;
+    height: 100%;
+    border: 1px solid red;
+}
+#center{
+    width: 100%;
+    height: 8%;
+    text-align: center;
+    line-height: 200%;
+    font-size: 10px;
+    /*background-color: rgb(9,10,28);*/
+    text-shadow: 10px 10px rgb(9,10,28);
+}
+
+#list{
+    width:20%;
+    height:100%;
+    position: absolute;
+    margin-left: 10%;
+}
+#list:hover span{
+    color: chocolate;
+}
+
+#list1{
+    width: 10%;
+    height:100%;
+    line-height: 200%;
+    position: absolute;
+    left: 50%;
+}
+#list1:hover span{
+    color: chocolate;
+}
+
+#list2{
+    width: 10%;
+    height: 100%;
+    position: absolute;
+    left: 60%;
+    /*border: 1px solid red;*/
+}
+#list2:hover span{
+    color: chocolate;
+}
+#list3{
+    width: 10%;
+    height: 100%;
+    position: absolute;
+    left: 70%;
+    /*border: 1px solid red;*/
+}
+#list3:hover span{
+    color: chocolate;
+}
+#list4{
+    width: 10%;
+    height: 100%;
+    position: absolute;
+    left: 80%;
+}
+#list4:hover span{
+    color: chocolate;
+}
+#list5 {
+    width: 10%;
+    height: 100%;
+    position: absolute;
+    left: 90%;
+}
+#list5:hover span{
+    color: chocolate;
+}
+#bottom{
+    width: 100%;
+    height: 92%;
+    position: absolute;
+    top: 9%;
+    /*background-color: rgb(9,10,28);*/
+    border: 1px solid royalblue;
+}
+
+#left1{
+    width: 40%;
+    height: 95%;
+    position: absolute;
+    border: 1px solid red;
+}
+.left1-top{
+    width: 100%;
+    height: 50%;
+    border: 1px solid red;
+}
+/*.ha{*/
+/*    width: 100%;*/
+/*    height: 10%;*/
+/*    font-size: 25px;*/
+/*    border: 1px solid red;*/
+/*    color: rgb(203,163,1);*/
+/*    text-align: center;*/
+
+/*}*/
+#hb{
+    width: 100%;
+    height: 90%;
+    border: 1px solid red;
+}
+
+#left1-bottom{
+    width: 100%;
+    height: 50%;
+    border: 1px solid red;
+}
+/*.ma{*/
+/*    width: 100%;*/
+/*    height: 10%;*/
+/*    font-size: 25px;*/
+/*    border: 1px solid red;*/
+/*    color: rgb(203,163,1);*/
+/*    text-align: center;*/
+/*}*/
+#mb{
+    width: 100%;
+    height: 90%;
+    border: 1px solid red;
+
+}
+
+#right1{
+    width: 60%;
+    height: 98%;
+    position: absolute;
+    left: 40%;
+    border: 1px solid lawngreen;
+
+}
+#yb{
+    width: 100%;
+    height: 95%;
+    margin-top: 2%;
+    border: 1px solid red;
+}
+

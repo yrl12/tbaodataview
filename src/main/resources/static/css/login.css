@@ -1,0 +1,90 @@
+*{
+    padding: 0;
+    margin: 0;
+    color: white;
+}
+html{
+    width: 100%;
+    height: 100%;
+}
+body{
+    width: 100%;
+    height: 100%;
+}
+/*底部*/
+#bottom{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    background-color: lavenderblush;
+
+}
+#main{
+    width: 80%;
+    height: 85%;
+    margin-top: 3%;
+    box-shadow: 5px 5px 5px 5px lightgrey;
+}
+/*左侧*/
+#left{
+    width: 40%;
+    height: 100%;
+    text-align: center;
+    line-height: 500px;
+    background-size: 100% 100%;
+    background-image: url("../img/bck2.jpg");
+
+}
+/*右侧*/
+#right{
+    width: 50%;
+    height: 85%;
+    position: absolute;
+    left: 40%;
+    top: 6.5%;
+    background-color: linen;
+}
+#box{
+    width: 50%;
+    height: 70%;
+    margin-left: 25%;
+    margin-top:10%;
+}
+#box div{
+    width: 80%;
+    height: 20%;
+    margin: auto;
+    margin-top: 10px;
+    text-align: center;
+}
+#box div input{
+    color: black;
+    font-size: 10px;
+    font-weight: bolder;
+}
+#box div span{
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+    font-size: 40px;
+}
+#text{
+    color: peachpuff;
+    font-size: 18px;
+    font-weight: bolder;
+    margin-top: auto;
+    text-align: center;
+}
+#a1{
+    width: 40%;
+    height: 20%;
+    color: black;
+    font-size: 13px;
+    font-weight: bolder;
+}
+
+
+
+
+
